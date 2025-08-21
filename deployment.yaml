@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mstip
+  namespace: mstip
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mstip
+  template:
+    metadata:
+      labels:
+        app: mstip
+    spec:
+      containers:
+        - name: flask
+          image: xzenintojix/mstip-flask:latest
+          ports:
+            - containerPort: 5000
