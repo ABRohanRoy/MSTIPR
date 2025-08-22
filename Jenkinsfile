@@ -2,14 +2,9 @@ pipeline {
   agent any
   environment {
     IMAGE = "xzenintojix/mstip-flask"
-    SHORT_SHA = "${env.GIT_COMMIT?.take(7) ?: 'local'}"
+    SHORT_SHA = "${env.BUILD_NUMBER}"
   }
   stages {
-    stage('Show Commit Info') {
-      steps {
-        echo "Building commit: ${env.GIT_COMMIT}"
-      }
-    }
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE:$SHORT_SHA -t $IMAGE:latest .'
