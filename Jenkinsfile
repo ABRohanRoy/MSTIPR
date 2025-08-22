@@ -5,9 +5,6 @@ pipeline {
     SHORT_SHA = "${env.GIT_COMMIT?.take(7) ?: 'local'}"
   }
   stages {
-    stage('Checkout') {
-      steps { checkout scm }
-    }
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE:$SHORT_SHA -t $IMAGE:latest .'
@@ -31,3 +28,4 @@ pipeline {
     }
   }
 }
+

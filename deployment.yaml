@@ -14,7 +14,7 @@ spec:
         app: mstip
     spec:
       containers:
-        - name: flask
+        - name: flask-container
           image: xzenintojix/mstip-flask:latest
           ports:
             - containerPort: 5000
