@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mstip
-  namespace: mstip
+  namespace: mstip   # make sure namespace exists (kubectl create namespace mstip)
 spec:
   replicas: 1
   selector:
@@ -18,3 +18,11 @@ spec:
           image: xzenintojix/mstip-flask:latest
           ports:
             - containerPort: 5000
+          resources:       # (optional, but good practice)
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
