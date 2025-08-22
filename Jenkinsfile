@@ -5,6 +5,11 @@ pipeline {
     SHORT_SHA = "${env.GIT_COMMIT?.take(7) ?: 'local'}"
   }
   stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE:$SHORT_SHA -t $IMAGE:latest .'
@@ -19,13 +24,13 @@ pipeline {
         }
       }
     }
-    stage('Deploy to Kubernetes') {
-      steps {
-        sh 'kubectl apply -f deployment.yaml -n mstip || true'
-        sh 'kubectl apply -f service.yaml -n mstip || true'
-        sh 'kubectl rollout status deploy/mstip -n mstip'
-      }
-    }
+    // Disable Kubernetes until Jenkins build works
+    // stage('Deploy to Kubernetes') {
+    //   steps {
+    //     sh 'kubectl apply -f deployment.yaml -n mstip || true'
+    //     sh 'kubectl apply -f service.yaml -n mstip || true'
+    //     sh 'kubectl rollout status deploy/mstip -n mstip'
+    //   }
+    // }
   }
 }
-
