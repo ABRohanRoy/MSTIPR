@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  options {
+    skipDefaultCheckout()   // prevents Declarative: Checkout SCM
+  }
   environment {
     IMAGE = "xzenintojix/mstip-flask"
     SHORT_SHA = "${env.BUILD_NUMBER}"
